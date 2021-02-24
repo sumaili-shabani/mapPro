@@ -1,0 +1,22 @@
+CREATE VIEW profile_universite as SELECT universite.idv,nomv,province.nomp,ville.created_at,ville.idp, 
+universite.nom,universite.description,universite.lien,universite.iduniv FROM ville INNER JOIN province 
+ON ville.idp=province.idp INNER JOIN universite ON universite.idv=ville.idv
+
+=========================================================================================================
+
+CREATE VIEW profile_departement AS SELECT universite.idv,nomv,province.nomp,ville.created_at,ville.idp, 
+universite.nom,universite.description,universite.lien,faculte.iduniv, faculte.nomfac,faculte.idfac,departement.nomdep, 
+departement.iddep FROM ville INNER JOIN province ON ville.idp=province.idp INNER JOIN universite 
+ON universite.idv=ville.idv INNER JOIN faculte ON faculte.iduniv=universite.iduniv 
+INNER JOIN departement ON departement.idfac=faculte.idfac
+
+
+=======================================
+
+CREATE VIEW profile_livre AS SELECT universite.idv,nomv,province.nomp,ville.idp, universite.nom,universite.description,
+universite.lien,faculte.iduniv, faculte.nomfac,faculte.idfac,departement.nomdep, departement.iddep, 
+livre.idl,livre.noml,livre.descriptionl,livre.image,livre.auteur,livre.edition,livre.created_at,livre.fichier, 
+users.first_name,users.last_name,users.email,users.id, users.image as photo FROM ville INNER JOIN province 
+ON ville.idp=province.idp INNER JOIN universite ON universite.idv=ville.idv INNER JOIN faculte 
+ON faculte.iduniv=universite.iduniv INNER JOIN departement ON departement.idfac=faculte.idfac INNER JOIN livre 
+ON livre.iddep=departement.iddep INNER JOIN users ON users.id=livre.id_user
